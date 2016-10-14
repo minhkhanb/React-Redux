@@ -10,6 +10,7 @@ class App extends React.Component {
 
         this.state = {
             db: [],
+            dnumber: 0,
             data: [
                 {
                     id: 1,
@@ -34,6 +35,7 @@ class App extends React.Component {
         this.setStateHandler = this.setStateHandler.bind(this);
         this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
         this.findDomNodeHandler = this.findDomNodeHandler.bind(this);
+        this.setNewNumber = this.setNewNumber.bind(this);
     }
 
     setStateHandler () {
@@ -54,6 +56,12 @@ class App extends React.Component {
         ReactDOM.findDOMNode(myDiv).style.color = 'green';
     }
 
+    setNewNumber () {
+        this.setState({
+             dnumber: this.state.dnumber + 1
+        });
+    }
+
     render() {
         return (
             <div>
@@ -63,7 +71,8 @@ class App extends React.Component {
                     {this.state.data.map((person, i) => <TableRow key={i} data={person}/>)}
                     </tbody>
                 </table>
-                <Content contentProp={this.state.content}/>
+                <button onClick={this.setNewNumber}>INCREAMENT</button>
+                <Content myNumber={this.state.dnumber} contentProp={this.state.content}/>
                 <p>{this.props.headerProp}</p>
                 <p>{this.props.contentProp}</p>
                 <div className="validatingProps">
