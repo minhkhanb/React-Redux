@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Header from './components/Header';
 import Content from './components/Content';
 import TableRow from './components/TableRow';
@@ -31,6 +32,8 @@ class App extends React.Component {
         }
 
         this.setStateHandler = this.setStateHandler.bind(this);
+        this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+        this.findDomNodeHandler = this.findDomNodeHandler.bind(this);
     }
 
     setStateHandler () {
@@ -40,6 +43,15 @@ class App extends React.Component {
         this.setState({
             db: myArray
         });
+    }
+
+    forceUpdateHandler () {
+        this.forceUpdate();
+    }
+
+    findDomNodeHandler () {
+        var myDiv = document.getElementById('myDiv');
+        ReactDOM.findDOMNode(myDiv).style.color = 'green';
     }
 
     render() {
@@ -67,6 +79,16 @@ class App extends React.Component {
                 <div className="setState">
                     <button onClick={this.setStateHandler}>SET STATE</button>
                     <h4>State Array: {this.state.db}</h4>
+                </div>
+                <div className="forceUpdate">
+                    <button onClick={this.forceUpdateHandler}>FORCE UPDATE</button>
+                    <h4>Random number: {Math.floor((Math.random()*10) + 1)}</h4>
+                </div>
+                <div className="findDOMNode">
+                    <button onClick={this.findDomNodeHandler}>FIND DOM NODE</button>
+                    <div id="myDiv">
+                        <span>NODE</span>
+                    </div>
                 </div>
             </div>
         );
