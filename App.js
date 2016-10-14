@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Header from './components/Header';
 import Content from './components/Content';
 import TableRow from './components/TableRow';
+import Keys from './components/Keys';
 
 class App extends React.Component {
     constructor() {
@@ -31,7 +32,23 @@ class App extends React.Component {
             header: 'Header from props...',
             content: 'Content from props...',
             inputValue: 'Initial data...',
-            eventData: 'Initial data...'
+            eventData: 'Initial data...',
+            updateParent: 'Initial data...',
+            tRef: '',
+            dataKey: [
+                {
+                    id: 1,
+                    component:'First...'
+                },
+                {
+                    id: 2,
+                    component:'Second...'
+                },
+                {
+                    id: 3,
+                    component:'Third...'
+                }
+            ]
         }
 
         this.setStateHandler = this.setStateHandler.bind(this);
@@ -40,6 +57,9 @@ class App extends React.Component {
         this.setNewNumber = this.setNewNumber.bind(this);
         this.updateState = this.updateState.bind(this);
         this.updateStateEvent = this.updateStateEvent.bind(this);
+        this.updateStateParentfromChild = this.updateStateParentfromChild.bind(this);
+        this.updateInputRef = this.updateInputRef.bind(this);
+        this.clearInput = this.clearInput.bind(this);
     }
 
     setStateHandler () {
@@ -78,6 +98,25 @@ class App extends React.Component {
         });
     }
 
+    updateStateParentfromChild () {
+        this.setState({
+            updateParent:'Data updated from the child component...'
+        });
+    }
+
+    updateInputRef (e) {
+        this.setState({
+            tRef: e.target.value
+        });
+    }
+
+    clearInput () {
+        this.setState({
+            tRef:''
+        });
+        ReactDOM.findDOMNode(this.refs.myInput).focus();
+    }
+
     render() {
         return (
             <div>
@@ -88,7 +127,7 @@ class App extends React.Component {
                     </tbody>
                 </table>
                 <button onClick={this.setNewNumber}>INCREAMENT</button>
-                <Content myNumber={this.state.dnumber} contentProp={this.state.content} myDataProp={this.state.inputValue} updateStateProp={this.updateState}/>
+                <Content myNumber={this.state.dnumber} contentProp={this.state.content} myDataProp={this.state.inputValue} updateStateProp={this.updateState} parentData={this.state.updateParent} parentUpdateStateProp={this.updateStateParentfromChild}/>
                 <p>{this.props.headerProp}</p>
                 <p>{this.props.contentProp}</p>
                 <div className="validatingProps">
@@ -122,6 +161,16 @@ class App extends React.Component {
                 <div className="events">
                     <button onClick={this.updateStateEvent}>CLICK</button>
                     <h4>{this.state.eventData}</h4>
+                </div>
+                <div className="refs">
+                    <input type="text" value={this.state.tRef} onChange={this.updateInputRef} ref="myInput"/>
+                    <button onClick={this.clearInput}>CLEAR</button>
+                    <h4>{this.state.tRef}</h4>
+                </div>
+                <div className="keys">
+                    <div>
+                        {this.state.dataKey.map(( dynamicComponent, i) => <Keys key={i} componentData={dynamicComponent}/>)}
+                    </div>
                 </div>
             </div>
         );
