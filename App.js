@@ -29,13 +29,17 @@ class App extends React.Component {
                 },
             ],
             header: 'Header from props...',
-            content: 'Content from props...'
+            content: 'Content from props...',
+            inputValue: 'Initial data...',
+            eventData: 'Initial data...'
         }
 
         this.setStateHandler = this.setStateHandler.bind(this);
         this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
         this.findDomNodeHandler = this.findDomNodeHandler.bind(this);
         this.setNewNumber = this.setNewNumber.bind(this);
+        this.updateState = this.updateState.bind(this);
+        this.updateStateEvent = this.updateStateEvent.bind(this);
     }
 
     setStateHandler () {
@@ -62,6 +66,18 @@ class App extends React.Component {
         });
     }
 
+    updateState (e) {
+        this.setState({
+            inputValue: e.target.value
+        })
+    }
+
+    updateStateEvent () {
+        this.setState({
+            eventData:'Data updated...'
+        });
+    }
+
     render() {
         return (
             <div>
@@ -72,7 +88,7 @@ class App extends React.Component {
                     </tbody>
                 </table>
                 <button onClick={this.setNewNumber}>INCREAMENT</button>
-                <Content myNumber={this.state.dnumber} contentProp={this.state.content}/>
+                <Content myNumber={this.state.dnumber} contentProp={this.state.content} myDataProp={this.state.inputValue} updateStateProp={this.updateState}/>
                 <p>{this.props.headerProp}</p>
                 <p>{this.props.contentProp}</p>
                 <div className="validatingProps">
@@ -98,6 +114,14 @@ class App extends React.Component {
                     <div id="myDiv">
                         <span>NODE</span>
                     </div>
+                </div>
+                <div className="input-form">
+                    <input type="text" value={this.state.inputValue} onChange={this.updateState}/>
+                    <h4>{this.state.inputValue}</h4>
+                </div>
+                <div className="events">
+                    <button onClick={this.updateStateEvent}>CLICK</button>
+                    <h4>{this.state.eventData}</h4>
                 </div>
             </div>
         );

@@ -35,6 +35,10 @@ class Content extends React.Component {
                 <h2>{this.props.contentProp}</h2>
                 <p>The content text!!!</p>
                 <p>{this.props.myNumber}</p>
+                <div className="input-form">
+                    <input type="text" value={this.props.myDataProp} onChange={this.props.updateStateProp}/>
+                    <h3>{this.props.myDataProp}</h3>
+                </div>
             </div>
         );
     }
