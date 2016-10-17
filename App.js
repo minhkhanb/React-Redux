@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Content from './components/Content';
 import TableRow from './components/TableRow';
 import Keys from './components/Keys';
+import {Router, Route, Link, browserHistory, IndexRoute} from 'react-router';
 
 class App extends React.Component {
     constructor() {
@@ -171,6 +172,20 @@ class App extends React.Component {
                     <div>
                         {this.state.dataKey.map(( dynamicComponent, i) => <Keys key={i} componentData={dynamicComponent}/>)}
                     </div>
+                </div>
+                <div className="router">
+                    <ul>
+                        <Link to="home">
+                            Home
+                        </Link>
+                        <Link to="about">
+                            About
+                        </Link>
+                        <Link to="contact">
+                            Contact
+                        </Link>
+                    </ul>
+                    {this.props.children}
                 </div>
             </div>
         );
